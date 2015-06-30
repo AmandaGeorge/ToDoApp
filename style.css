@@ -1,0 +1,11 @@
+div {
+	text-align: center;
+}
+
+ul {
+	text-align: left;
+}
+
+.done {
+	text-decoration: line-through;
+}
