@@ -1,21 +1,42 @@
 $(document).ready(function() {
 	console.log("working js");
 
-	var $form = $("#new_todo_list");
+	var $form = $("#todo_list_form");
 	var $List = $("#todo_list");
 	
 	var $itemName = $("#item-name");
 	var $itemDesc = $("#item-desc");
 
+	// to compile the template
+	var todoTemplate = _.template($("#toDo-template").html());
+
+	//test data
+	var testToDos = [
+		{name: "homework", desc: "wdi modules"},
+		{name: "walk dog", desc: "30 minutes"},
+		{name: "cook dinner", desc: "pasta sauce"}
+	];
+
+	//append existing todo's from testToDos to '$List'
+	_.each(testToDos, function(todo, index) {
+		var $toDo = $(todoTemplate(todo));
+		$toDo.attr("data-index", index); //save object's index in array to an HTML data attribute so we can delete elements from DOM
+		$List.append($toDo);
+	});
+
 	$form.on("submit",
 		function(event) {
 			event.preventDefault();
 			console.log($itemName.val());
-			$List.append("<li>" + $itemName.val() + ": " + $itemDesc.val() +  "</li>");
-
-
+			var todoData = {
+				name: $itemName.val(), 
+				desc: $itemDesc.val()
+			}; // creates empty object
+			var $newToDo = $(todoTemplate(todoData));
+			$List.append($newToDo);
 		}
-	)
+	);
+
 	var $allLis = $("li");
 
 	$List.on("click", "li",
@@ -23,7 +44,7 @@ $(document).ready(function() {
 			// alert('clicked');
 			$(this).addClass("done");
 		}
-	)
+	);
 
 
 })

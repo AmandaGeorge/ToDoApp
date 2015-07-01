@@ -11,7 +11,7 @@
 	<div class="container">
 		<h1>ToDo List</h1>
 		<hr>
-		<form id="new_todo_list">
+		<form id="todo_list_form">
 			<div class="form-group">
 				<input class="form-control" id="item-name" placeholder="Add a to do" autofocus>
 			</div>
@@ -24,13 +24,29 @@
 		</form>
 
 	</div>
+	<hr>
 	<div>
 		<ul id="todo_list">
+			<h3>My List</h3>
 		</ul>
 	</div>
 
+	<!-- jquery -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+	<!-- bootstrap js -->
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- underscore -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
 	<script type="text/javascript" src="script.js"></script>
+
+	<script type="text/template" id="toDo-template">
+		<li>
+		<%= name %>: <%= desc %>
+		</li>
+	</script>
+
 </body>
 </html>
