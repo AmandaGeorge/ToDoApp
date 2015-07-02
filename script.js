@@ -18,24 +18,47 @@ $(document).ready(function() {
 	];
 
 	//append existing todo's from testToDos to '$List'
-	_.each(testToDos, function(todo, index) {
-		var $toDo = $(todoTemplate(todo));
+	// _.each(testToDos, function(todo, index) {
+	// 	var $toDo = $(todoTemplate(todo));
+	// 	$toDo.attr("data-index", index); //save object's index in array to an HTML data attribute so we can delete elements from DOM
+	// 	$List.append($toDo);
+	// });
+
+	//constructor function
+	function ToDo(title, description) {
+		this.title = title;
+		this.description = description;
+	};
+
+	ToDo.all = [];
+
+	ToDo.prototype.save = function() {
+		ToDo.all.push(this);
+	}
+
+	ToDo.prototype.render = function() {
+		var $toDo = $(todoTemplate(this);
 		$toDo.attr("data-index", index); //save object's index in array to an HTML data attribute so we can delete elements from DOM
 		$List.append($toDo);
-	});
+	}
+	
 
 	$form.on("submit",
 		function(event) {
 			event.preventDefault();
-			console.log($itemName.val());
 			var todoData = {
 				name: $itemName.val(), 
 				desc: $itemDesc.val()
 			}; // creates empty object
 			var $newToDo = $(todoTemplate(todoData));
 			$List.append($newToDo);
+		
+			$form[0].reset();
+			$("#item-name").focus();
 		}
 	);
+
+	
 
 	var $allLis = $("li");
 
