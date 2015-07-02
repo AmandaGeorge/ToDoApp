@@ -8,7 +8,7 @@ $(document).ready(function() {
 	var $itemDesc = $("#item-desc");
 
 	// to compile the template
-	var todoTemplate = _.template($("#toDo-template").html());
+	var _todoTemplate = _.template($("#toDo-template").html());
 
 	//test data
 	var testToDos = [
@@ -25,20 +25,20 @@ $(document).ready(function() {
 	// });
 
 	//constructor function
-	function ToDo(title, description) {
-		this.title = title;
-		this.description = description;
+	function ToDo(name, desc) {
+		this.name = name;
+		this.desc = desc;
 	};
 
-	ToDo.all = [];
+	ToDo.all_todos = [];
 
 	ToDo.prototype.save = function() {
-		ToDo.all.push(this);
+		ToDo.all_todos.push(this);
 	}
 
 	ToDo.prototype.render = function() {
-		var $toDo = $(todoTemplate(this);
-		$toDo.attr("data-index", index); //save object's index in array to an HTML data attribute so we can delete elements from DOM
+		var $toDo = $(_todoTemplate(this));
+		//$toDo.attr("data-index", index); //save object's index in array to an HTML data attribute so we can delete elements from DOM
 		$List.append($toDo);
 	}
 	
@@ -46,12 +46,16 @@ $(document).ready(function() {
 	$form.on("submit",
 		function(event) {
 			event.preventDefault();
-			var todoData = {
-				name: $itemName.val(), 
-				desc: $itemDesc.val()
-			}; // creates empty object
-			var $newToDo = $(todoTemplate(todoData));
-			$List.append($newToDo);
+			// var todoData = {
+			// 	name: $itemName.val(), 
+			// 	desc: $itemDesc.val()
+			// }; // creates empty object; but no longer needed b/c ToDo constructor will do this for us
+			//var $newToDo = $(todoTemplate(todoData));
+			//$List.append($newToDo);
+
+			var myTodo = new ToDo($itemName.val(), $itemDesc.val());
+			myTodo.save();
+			myTodo.render();
 		
 			$form[0].reset();
 			$("#item-name").focus();
